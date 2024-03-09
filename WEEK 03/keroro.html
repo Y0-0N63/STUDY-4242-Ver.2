@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>케로로</title>
+  </head>
+  <style>
+    .selectBasic {
+      width: 250px;
+      height: 100px;
+      border-radius: 10px;
+
+      text-align: center;
+      font-size: larger;
+    }
+  </style>
+  <body>
+    <select name="" class="selectBasic" onchange="saying()">
+      <option value="케로로">케로로</option>
+      <option value="도로로">도로로</option>
+      <option value="타마마">타마마</option>
+    </select>
+  </body>
+  <script>
+    function saying() {
+      let character = document.querySelector('.selectBasic').value;
+      if (character == '케로로') {
+        alert('중사입니다.');
+      } else if (character == '도로로') {
+        alert('병장입니다.');
+      } else if (character == '타마마') {
+        alert('이등병입니다.');
+      }
+    }
+  </script>
+</html>
