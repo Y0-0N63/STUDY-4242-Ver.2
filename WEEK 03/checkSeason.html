@@ -37,7 +37,9 @@
       // 사용자가 입력한 월을 정수형으로 변환하여 month 변수에 저장
       let month = parseInt(document.getElementById('inputMonth').value);
 
-      if (month >= 3 && month <= 5) {
+      // 월에 따라 해당 계절 알림창 띄우기+배경색 변경하기
+      // 3월~5월: 봄, 6월~8월: 여름, 9월~11월: 가을, 12월~2월: 겨울
+      if (month >= 3 && month <= 5) { 
         alert('봄입니다');
         document.body.style.backgroundColor = '#fbe4eb';
       } else if (month >= 6 && month <= 8) {
