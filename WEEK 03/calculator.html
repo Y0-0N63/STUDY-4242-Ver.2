@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계산기 만들기</title>
+    <style>
+      .calculator {
+        width: 550px;
+        height: 300px;
+        padding: 7px;
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+      }
+
+      .display {
+        text-align: end;
+        width: 520px;
+        height: 30px;
+        padding: 5px;
+        background-color: #efefef;
+      }
+
+      .buttons {
+        flex-basis: 100%;
+        flex-direction: column;
+      }
+
+      button {
+        margin: 5px;
+        width: 120px;
+        height: 40px;
+      }
+
+      #zero {
+        width: 255px;
+      }
+
+      #equal {
+        width: 530px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="display">0</div>
+      <div class="buttons">
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>+</button>
+      </div>
+      <div class="buttons">
+        <button>6</button>
+        <button>5</button>
+        <button>4</button>
+        <button>-</button>
+      </div>
+      <div class="buttons">
+        <button>3</button>
+        <button>2</button>
+        <button>1</button>
+        <button>*</button>
+      </div>
+      <div class="buttons">
+        <button id="zero">0</button>
+        <button>.</button>
+        <button>/</button>
+      </div>
+      <div class="buttons">
+        <button id="equal">=</button>
+      </div>
+    </div>
+  </body>
+</html>
