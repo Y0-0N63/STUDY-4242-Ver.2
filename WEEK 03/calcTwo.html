@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>입력받은 두 수 계산하기</title>
+  </head>
+  <body>
+    <input type="button" id="plus" value="+" onclick="calc('plus')" />
+    <input type="button" id="sub" value="-" onclick="calc('sub')" />
+    <input type="button" id="multi" value="*" onclick="calc('muti')" />
+    <input type="button" id="div" value="/" onclick="calc('div')" />
+    <input type="button" id="divRemain" value="%" onclick="calc('divRemain')" />
+  </body>
+
+  <script>
+    function calc(clacSort) {
+      var one = prompt('첫 번째 숫자를 입력하세요 : ');
+      var two = prompt('두 번째 숫자를 입력하세요 : ');
+
+      var first = parseInt(one);
+      var second = parseInt(two);
+
+      var result;
+      if (clacSort === 'plus') {
+        result = first + second;
+        alert('덧셈 결과 : ' + result);
+      } else if (clacSort === 'sub') {
+        result = first - second;
+        alert('뺄셈 결과 : ' + result);
+      } else if (clacSort === 'multi') {
+        result = first * second;
+        alert('곱하기 결과 : ' + result);
+      } else if (clacSort === 'div') {
+        result = first / second;
+        alert('나누기 결과 : ' + result);
+      } else if (clacSort === 'divRemain') {
+        result = first % second;
+        alert('나머지가 있는 나누기 결과 : ' + result);
+      } else {
+        alert('숫자를 다시 입력해주세요.');
+      }
+    }
+  </script>
+</html>
