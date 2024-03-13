@@ -1,9 +1,10 @@
+<!-- [문제] ㄱ과 ㄴ 중 ㄱ 고르면 o ,ㄴ 고르면 x나오게 하기 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>ㄱ, ㄴ 맞추기</title>
     <style>
       body {
         font-weight: bold;
@@ -24,10 +25,14 @@
   </head>
   <body>
     <h1>다음 중 어떤 것이 ㄱ 일까요?</h1>
+    <!-- 버튼이 클릭되면 quiz() 호출 -->
+    <!-- 매개변수 correct 호출 -->
     <button id="correct" onclick="quiz('correct')">ㄱ</button>
+    <!-- 매개변수 wrong 호출 -->
     <button id="wrong" onclick="quiz('wrong')">ㄴ</button>
   </body>
   <script>
+    // 전달받은 매개변수 확인 후 메시지 출력
     function quiz(answer) {
       if (answer == 'correct') {
         alert('o');
