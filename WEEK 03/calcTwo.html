@@ -6,37 +6,44 @@
     <title>입력받은 두 수 계산하기</title>
   </head>
   <body>
+    <!-- 버튼 클릭할 때 calc() 호출+함수에 전달된 매개변수 calcSort를 통해 숫자 입력받고 연산 수행 -->
     <input type="button" id="plus" value="+" onclick="calc('plus')" />
     <input type="button" id="sub" value="-" onclick="calc('sub')" />
-    <input type="button" id="multi" value="*" onclick="calc('muti')" />
+    <input type="button" id="multi" value="*" onclick="calc('multi')" />
     <input type="button" id="div" value="/" onclick="calc('div')" />
     <input type="button" id="divRemain" value="%" onclick="calc('divRemain')" />
   </body>
 
   <script>
-    function calc(clacSort) {
+    function calc(calcSort) {
       var one = prompt('첫 번째 숫자를 입력하세요 : ');
       var two = prompt('두 번째 숫자를 입력하세요 : ');
 
+      // 입력 받은 문자열을 정수로 전환
       var first = parseInt(one);
       var second = parseInt(two);
 
+      // 혹은 위 네 줄을 아래와 같이 줄일 수도 있음
+      // var one = parseInt(prompt('첫 번째 숫자를 입력하세요 : '));
+      // var second = parseInt(prompt('첫 번째 숫자를 입력하세요 : '));
+
+      // result 변수에 계산 결과 저장+연산 결과 및 오류 알림 메시지 띄우기
       var result;
-      if (clacSort === 'plus') {
+      if (calcSort === 'plus') {
         result = first + second;
         alert('덧셈 결과 : ' + result);
-      } else if (clacSort === 'sub') {
+      } else if (calcSort === 'sub') {
         result = first - second;
         alert('뺄셈 결과 : ' + result);
-      } else if (clacSort === 'multi') {
+      } else if (calcSort === 'multi') {
         result = first * second;
         alert('곱하기 결과 : ' + result);
-      } else if (clacSort === 'div') {
+      } else if (calcSort === 'div') {
         result = first / second;
         alert('나누기 결과 : ' + result);
-      } else if (clacSort === 'divRemain') {
+      } else if (calcSort === 'divRemain') {
         result = first % second;
-        alert('나머지가 있는 나누기 결과 : ' + result);
+        alert('나누기 후 나머지의 값 결과 : ' + result);
       } else {
         alert('숫자를 다시 입력해주세요.');
       }
