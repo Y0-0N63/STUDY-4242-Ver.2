@@ -14,11 +14,6 @@
         width: 40px;
         height: 20px;
       }
-
-      #result {
-        width: 100px;
-        height: 20px;
-      }
     </style>
   </head>
 
@@ -31,12 +26,9 @@
 
   <script>
     function checkSeason() {
-      // 사용자가 입력한 월을 정수형으로 변환하여 month 변수에 저장
-      let month = parseInt(document.getElementById('inputMonth').value);
+      let month = parseInt(document.querySelector('#inputMonth').value);
 
-      // 월에 따라 해당 계절 알림창 띄우기+배경색 변경하기
-      // 3월~5월: 봄, 6월~8월: 여름, 9월~11월: 가을, 12월~2월: 겨울
-      if (month >= 3 && month <= 5) { 
+      if (month >= 3 && month <= 5) {
         alert('봄입니다');
         document.body.style.backgroundColor = '#fbe4eb';
       } else if (month >= 6 && month <= 8) {
@@ -45,12 +37,10 @@
       } else if (month >= 9 && month <= 11) {
         alert('가을입니다');
         document.body.style.backgroundColor = '#ffead8';
-        // 12 or 1 or 2, 셋 중 하나라도 참이라면
       } else if (month === 12 || month === 1 || month === 2) {
         alert('겨울입니다');
         document.body.style.backgroundColor = '#e6f4fa';
       } else {
-        // 1~12 외 다른 문자/숫자를 입력했을 때 오류 알림창 띄워주기
         alert('올바른 월을 입력하세요. (1~12)');
       }
     }
