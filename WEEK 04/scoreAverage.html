@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>점수의 평균 구하기</title>
+  </head>
+  <body></body>
+  <script>
+    const student = {
+      name: 'Boyun',
+      age: '21',
+      scores: {
+        korean: 90,
+        english: 80,
+        math: 70,
+      },
+    };
+
+    // 그리고 scores의 총점과 평균을 console.log에 나오도록 해주시면 됩니다.
+    const totalScore =
+      parseInt(student.scores.korean) +
+      parseInt(student.scores.english) +
+      parseInt(student.scores.math);
+    const aver = totalScore / 3;
+    console.log('총 점수는 ' + totalScore);
+    console.log('평균 점수는 ' + aver);
+  </script>
+</html>
