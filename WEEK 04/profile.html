@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 프로필 출력하기</title>
+    <style>
+      .main {
+        width: 400px;
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .profile {
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0px;
+      }
+
+      .box {
+        width: 200px;
+        height: 300px;
+        border: 4px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      .name,
+      .age,
+      .hobby,
+      .color {
+        font-size: 30px;
+        font-weight: 700;
+        display: none;
+      }
+
+      .plus {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      .minus {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      button {
+        width: 70px;
+        height: 40px;
+      }
+
+      h2 {
+        text-align: center;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="profile">
+        <h1>프로필</h1>
+        <div class="box">
+          <div class="name">최보윤</div>
+          <div class="age">21살</div>
+          <div class="hobby">노래 감상</div>
+          <div class="color">보라색</div>
+        </div>
+      </div>
+
+      <div class="plus">
+        <h2>추가</h2>
+        <button class="p_name">이름</button>
+        <button class="p_age">나이</button>
+        <button class="p_hobby">취미</button>
+        <button class="p_color">색깔</button>
+      </div>
+
+      <div class="minus">
+        <h2>삭제</h2>
+        <button class="m_name">이름</button>
+        <button class="m_age">나이</button>
+        <button class="m_hobby">취미</button>
+        <button class="m_color">색깔</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 1. person이라는 빈 객체 생성
+    const person = {};
+
+    // 2. 기능 추가 (프로퍼티 추가, box 안에 있는 해당 요소 보이게 하기, 콘솔 로그)
+    document.querySelector('.p_name').addEventListener('click', function () {
+      const name = document.querySelector('.name');
+      name.style.display = 'block';
+      person.name = name.textContent;
+      console.log('이름 : ', person.name);
+    });
+
+    document.querySelector('.p_age').addEventListener('click', function () {
+      const name = document.querySelector('.age');
+      name.style.display = 'block';
+      person.name = name.textContent;
+      console.log('나이 : ', person.age);
+    });
+
+    document.querySelector('.p_hobby').addEventListener('click', function () {
+      const name = document.querySelector('.hobby');
+      name.style.display = 'block';
+      person.name = name.textContent;
+      console.log('취미 : ', person.hobby);
+    });
+
+    document.querySelector('.p_color').addEventListener('click', function () {
+      const name = document.querySelector('.color');
+      name.style.display = 'block';
+      person.name = name.textContent;
+      console.log('색깔 : ', person.color);
+    });
+
+    // 3. 기능 추가 (box 안에 있는 해당 요소 안 보이게 하기, 프로퍼티 삭제, 콘솔 로그)
+    document.querySelector('.m_name').addEventListener('click', function () {
+      const name = document.querySelector('.name');
+      name.style.display = 'none';
+      delete person.name;
+      console.log('이름 란이 삭제되었습니다.');
+    });
+
+    document.querySelector('.m_age').addEventListener('click', function () {
+      const name = document.querySelector('.age');
+      name.style.display = 'none';
+      delete person.name;
+      console.log('나이 란이 삭제되었습니다.');
+    });
+
+    document.querySelector('.m_hobby').addEventListener('click', function () {
+      const name = document.querySelector('.hobby');
+      name.style.display = 'none';
+      delete person.name;
+      console.log('취미 란이 삭제되었습니다.');
+    });
+
+    document.querySelector('.m_color').addEventListener('click', function () {
+      const name = document.querySelector('.color');
+      name.style.display = 'none';
+      delete person.name;
+      console.log('색깔 란이 삭제되었습니다.');
+    });
+  </script>
+</html>
