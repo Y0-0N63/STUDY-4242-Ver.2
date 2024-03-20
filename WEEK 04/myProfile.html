@@ -12,10 +12,10 @@
     </style>
   </head>
   <body>
-    <button onclick="studentId1()">나의 학번은?</button>
-    <button onclick="major1()">나의 전공은?</button>
-    <button onclick="gender1()">나의 성별은?</button>
-    <button onclick="compliment1()">나에게 해주고 싶은 말은?</button>
+    <button onclick="studentId()">나의 학번은?</button>
+    <button onclick="major()">나의 전공은?</button>
+    <button onclick="gender()">나의 성별은?</button>
+    <button onclick="compliment()">나에게 해주고 싶은 말은?</button>
     <script>
       // 1. 첫 번째 객체 리터럴 안에 두 번째 객체 리터럴 만들기
       const boyun = {
@@ -27,25 +27,25 @@
       };
 
       // 2. 함수로 프로퍼티 동적 생성하여 alert 창에 값 띄우기
-      function compliment1() {
+      function compliment() {
         // compliment라는 프로퍼티 키로 프로퍼티 동적 생성 후 alert 창에 값 띄우기
         // 자신에게 해주고 싶은 말!!
         boyun.saying = '파이팅해야징';
         alert(boyun.saying);
       }
 
-      // studentId1 함수 (student-Id 값 alert 창에 값 띄우기)
-      function studentId1() {
+      // studentId 함수 (student-Id 값 alert 창에 값 띄우기)
+      function studentId() {
         alert(boyun.school.id);
       }
 
-      // major1 함수 (major 값 alert 창에 값 띄우기)
+      // major 함수 (major 값 alert 창에 값 띄우기)
       function major() {
         alert(boyun.school.major);
       }
 
-      // gender1 함수(gender 값 alert 창에 값 띄우기)
-      function gender1() {
+      // gender 함수(gender 값 alert 창에 값 띄우기)
+      function gender() {
         alert(boyun.gender);
       }
     </script>
