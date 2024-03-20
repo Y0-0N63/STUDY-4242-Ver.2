@@ -17,11 +17,9 @@
       },
     };
 
-    // 그리고 scores의 총점과 평균을 console 창에 나오게 하기
+    // scores의 총점과 평균을 console 창에 나오게 함
     const totalScore =
-      parseInt(student.scores.korean) +
-      parseInt(student.scores.english) +
-      parseInt(student.scores.math);
+      student.scores.korean + student.scores.english + student.scores.math;
     const aver = totalScore / 3;
     console.log('총 점수는 ' + totalScore);
     console.log('평균 점수는 ' + aver);
