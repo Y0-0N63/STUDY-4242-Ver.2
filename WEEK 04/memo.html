@@ -58,6 +58,7 @@
       // 문제1.사용자가 입력한 메모를 가져와서 저장을 하면 메모가 저장되었다는 경고창을 표시함.
       function saveMemo() {
         var memoContents = document.querySelector('#memo').value;
+        // 문자열 앞뒤의 공백을 제거한 후, 해당 문자열이 공백이 아니라면
         if (memoContents.trim() != '') {
           alert('메모가 저장되었습니다.');
         } else {
