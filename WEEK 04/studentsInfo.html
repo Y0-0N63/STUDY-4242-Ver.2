@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체 리터럴을 활용한 학생 정보 리스트</title>
+  </head>
+  <body>
+    <div id="studentInfo"></div>
+  </body>
+  <script>
+    const students = [
+      {
+        num: 1,
+        이름: '최보윤',
+        나이: 21,
+        정보: {
+          키: 166,
+          시력: -3.6,
+        },
+        좋아하는활동: ['노래 감상', '산책'],
+        성별: '여성',
+      },
+
+      {
+        num: 2,
+        이름: '전예지',
+        나이: 21,
+        정보: {
+          키: 167,
+          시력: -4.5,
+        },
+        좋아하는활동: ['영화 시청', '쇼핑'],
+        성별: '여성',
+      },
+
+      {
+        num: 3,
+        이름: '장철수',
+        나이: 24,
+        정보: {
+          키: 180,
+          시력: 0.5,
+        },
+        좋아하는활동: ['축구', '댄스'],
+        성별: '남성',
+      },
+
+      {
+        num: 4,
+        이름: '김지민',
+        나이: 18,
+        정보: {
+          키: 159,
+          시력: -2.5,
+        },
+        좋아하는활동: ['미술', '독서'],
+        성별: '여성',
+      },
+    ];
+
+    const studentInfoContainer = document.getElementById('studentInfo');
+
+    function addInfo() {
+      students.forEach(function (student) {
+        const studentInfo = document.createElement('div');
+        studentInfo.innerHTML = `
+        <h1>학생 ${student.num}</h1>
+          <p>이름 : ${student.이름}</p>
+          <p>나이 : ${student.나이}</P>
+          <p>키 정보 : ${student.정보.키}</P>
+          <p>시력 정보 : ${student.정보.시력}</P>
+          <p>좋아하는 활동 : ${student.좋아하는활동}</P>
+          <p>성별 : ${student.성별}</P>
+            <hr>
+          `;
+        studentInfoContainer.appendChild(studentInfo);
+      });
+    }
+
+    addInfo();
+  </script>
+</html>
