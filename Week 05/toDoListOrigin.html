@@ -34,11 +34,16 @@
   <body>
     <div class="container">
       <h1>오늘의 할 일</h1>
+      <!-- 엔터 키를 눌렀을 때 리스트에 할 일 추가시켜주기-->
       <input
         type="text"
         id="inputList"
         placeholder="오늘의 할 일을 입력하세요"
+        onkeypress="if(event.keyCode==13) addList();"
       />
+      <!-- onkeypress() : 키보드로 문자 입력할 때 발생
+      키 코드가 13=엔터키 -->
+
       <button onclick="addList()">추가</button>
       <ul id="list"></ul>
     </div>
