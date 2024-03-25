@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계산기 만들기</title>
+    <style>
+      .calculator {
+        width: 550px;
+        height: 300px;
+        padding: 7px;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
+      }
+
+      .display {
+        text-align: end;
+        width: 515px;
+        height: 30px;
+        margin: 5px;
+        padding: 5px;
+        background-color: #efefef;
+      }
+
+      .buttons {
+        flex-basis: auto;
+      }
+
+      button {
+        margin: 5px;
+        width: 120px;
+        height: 40px;
+      }
+
+      #zero {
+        width: 256px;
+      }
+
+      #equal {
+        width: 392px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="display"></div>
+      <div class="buttons">
+        <button onclick="displayNum('7')">7</button>
+        <button onclick="displayNum('8')">8</button>
+        <button onclick="displayNum('9')">9</button>
+        <button onclick="displayCalc('+')">+</button>
+      </div>
+      <div class="buttons">
+        <button onclick="displayNum('6')">6</button>
+        <button onclick="displayNum('5')">5</button>
+        <button onclick="displayNum('4')">4</button>
+        <button onclick="displayCalc('-')">-</button>
+      </div>
+      <div class="buttons">
+        <button onclick="displayNum('3')">3</button>
+        <button onclick="displayNum('2')">2</button>
+        <button onclick="displayNum('1')">1</button>
+        <button onclick="displayCalc('*')">*</button>
+      </div>
+      <div class="buttons">
+        <button id="zero" onclick="displayNum('0')">0</button>
+        <button onclick="displayNum('.')">.</button>
+        <button onclick="displayCalc('/')">/</button>
+      </div>
+      <div class="buttons">
+        <button id="equal" onclick="equal()">=</button>
+        <button onclick="init()">c</button>
+      </div>
+    </div>
+
+    <script>
+      var expression = '';
+      var displayScreen = document.querySelector('.display');
+      var resultDisplayed = false;
+
+      // 숫자 눌렀을 때
+      function displayNum(num) {
+        // 새 버튼을 눌렀을 때, 입력창에 이전 연산의 결과가 남아있으면 결과 지워주기
+        if (resultDisplayed) {
+          resultDisplayed = false;
+          displayScreen.textContent = '';
+        }
+
+        if (
+          displayScreen.textContent === '+' ||
+          displayScreen.textContent === '-' ||
+          displayScreen.textContent === '*' ||
+          displayScreen.textContent === '/'
+        ) {
+          // 입력창에 연산 부호가 남아있으면, 연산 부호를 지워주고(입력창을 공백으로) ✔️
+          // 입력한 숫자만 입력창에 남겨주는 기능 추가 ✔️
+          displayScreen.textContent = num;
+          expression += num;
+        } else {
+          displayScreen.textContent += num;
+          expression += num;
+        }
+      }
+
+      // 연산 기호 눌렀을 때
+      // 기존에 입력된 숫자 지우고 연산 기호만 띄워주는 기능 추가 ✔️
+      function displayCalc(symbol) {
+        displayScreen.textContent = '';
+        displayScreen.textContent += symbol;
+        expression += symbol;
+      }
+
+      // '=' 눌렀을 때
+      function equal() {
+        // 수식 계산하는 함수 호출
+        var result = calculateResult(expression);
+        // 계산 후 결과 출력
+        displayScreen.textContent = result;
+        // 결과 계산 후 연산식 초기화
+        expression = '';
+        resultDisplayed = true;
+      }
+
+      // 입력한 수식 계산 및 결과 반환
+      function calculateResult(expression) {
+        try {
+          return Function('return ' + expression)();
+          // 예외 발생->Error 반환
+        } catch (error) {
+          return 'Error';
+        }
+      }
+
+      // c 버튼을 눌렀을 때
+      function init() {
+        var displayScreen = document.querySelector('.display');
+        displayScreen.textContent = '';
+        expression = '';
+        resultDisplayed = false;
+      }
+    </script>
+  </body>
+</html>
