@@ -7,7 +7,7 @@
     <style>
       .calculator {
         width: 550px;
-        height: 300px;
+        height: 330px;
         padding: 7px;
 
         display: flex;
@@ -18,10 +18,20 @@
       .display {
         text-align: end;
         width: 515px;
-        height: 30px;
+        height: 55px;
         margin: 5px;
         padding: 5px;
         background-color: #efefef;
+      }
+
+      #displayExpression {
+        font-size: 18px;
+        color: #444444;
+      }
+
+      #displayResult {
+        font-size: 23px;
+        font-weight: bold;
       }
 
       .buttons {
@@ -31,7 +41,7 @@
       button {
         margin: 5px;
         width: 120px;
-        height: 40px;
+        height: 42px;
       }
 
       #zero {
@@ -45,7 +55,10 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="display"></div>
+      <div class="display">
+        <div id="displayExpression"></div>
+        <div id="displayResult"></div>
+      </div>
       <div class="buttons">
         <button onclick="displayNum('7')">7</button>
         <button onclick="displayNum('8')">8</button>
@@ -77,7 +90,8 @@
 
     <script>
       var expression = '';
-      var displayScreen = document.querySelector('.display');
+      var displayExpression = document.querySelector('#displayExpression');
+      var displayResult = document.querySelector('#displayResult');
       var resultDisplayed = false;
 
       // 숫자 눌렀을 때
@@ -85,39 +99,44 @@
         // 새 버튼을 눌렀을 때, 입력창에 이전 연산의 결과가 남아있으면 결과 지워주기
         if (resultDisplayed) {
           resultDisplayed = false;
-          displayScreen.textContent = '';
+          displayResult.textContent = '';
+          displayExpression.textContent = '';
         }
 
         if (
-          displayScreen.textContent === '+' ||
-          displayScreen.textContent === '-' ||
-          displayScreen.textContent === '*' ||
-          displayScreen.textContent === '/'
+          displayResult.textContent === '+' ||
+          displayResult.textContent === '-' ||
+          displayResult.textContent === '*' ||
+          displayResult.textContent === '/'
         ) {
           // 입력창에 연산 부호가 남아있으면, 연산 부호를 지워주고(입력창을 공백으로) ✔️
           // 입력한 숫자만 입력창에 남겨주는 기능 추가 ✔️
-          displayScreen.textContent = num;
           expression += num;
+          displayResult.textContent = num;
+          displayExpression.textContent = expression;
         } else {
-          displayScreen.textContent += num;
           expression += num;
+          displayResult.textContent += num;
+          displayExpression.textContent = expression;
         }
       }
 
       // 연산 기호 눌렀을 때
       // 기존에 입력된 숫자 지우고 연산 기호만 띄워주는 기능 추가 ✔️
       function displayCalc(symbol) {
-        displayScreen.textContent = '';
-        displayScreen.textContent += symbol;
+        displayResult.textContent = '';
         expression += symbol;
+        displayResult.textContent += symbol;
+        displayExpression.textContent = expression;
       }
 
       // '=' 눌렀을 때
       function equal() {
         // 수식 계산하는 함수 호출
         var result = calculateResult(expression);
+        displayExpression.textContent += '=';
         // 계산 후 결과 출력
-        displayScreen.textContent = result;
+        displayResult.textContent = result;
         // 결과 계산 후 연산식 초기화
         expression = '';
         resultDisplayed = true;
@@ -136,8 +155,9 @@
       // c 버튼을 눌렀을 때
       function init() {
         var displayScreen = document.querySelector('.display');
-        displayScreen.textContent = '';
         expression = '';
+        displayScreen.textContent = '';
+        displayExpression.textContent = '';
         resultDisplayed = false;
       }
     </script>
