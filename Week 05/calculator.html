@@ -7,7 +7,7 @@
     <style>
       .calculator {
         width: 550px;
-        height: 330px;
+        height: 350px;
         padding: 7px;
 
         display: flex;
@@ -63,28 +63,28 @@
         <button onclick="displayNum('7')">7</button>
         <button onclick="displayNum('8')">8</button>
         <button onclick="displayNum('9')">9</button>
-        <button onclick="displayCalc('+')">+</button>
+        <button onclick="displaySymbol('+')">+</button>
       </div>
       <div class="buttons">
         <button onclick="displayNum('6')">6</button>
         <button onclick="displayNum('5')">5</button>
         <button onclick="displayNum('4')">4</button>
-        <button onclick="displayCalc('-')">-</button>
+        <button onclick="displaySymbol('-')">-</button>
       </div>
       <div class="buttons">
         <button onclick="displayNum('3')">3</button>
         <button onclick="displayNum('2')">2</button>
         <button onclick="displayNum('1')">1</button>
-        <button onclick="displayCalc('*')">*</button>
+        <button onclick="displaySymbol('*')">*</button>
       </div>
       <div class="buttons">
         <button id="zero" onclick="displayNum('0')">0</button>
         <button onclick="displayNum('.')">.</button>
-        <button onclick="displayCalc('/')">/</button>
+        <button onclick="displaySymbol('/')">/</button>
       </div>
       <div class="buttons">
         <button id="equal" onclick="equal()">=</button>
-        <button onclick="init()">c</button>
+        <button onclick="init()">C</button>
       </div>
     </div>
 
@@ -99,6 +99,7 @@
         // 새 버튼을 눌렀을 때, 입력창에 이전 연산의 결과가 남아있으면 결과 지워주기
         if (resultDisplayed) {
           resultDisplayed = false;
+          expression = '';
           displayResult.textContent = '';
           displayExpression.textContent = '';
         }
@@ -123,7 +124,7 @@
 
       // 연산 기호 눌렀을 때
       // 기존에 입력된 숫자 지우고 연산 기호만 띄워주는 기능 추가 ✔️
-      function displayCalc(symbol) {
+      function displaySymbol(symbol) {
         displayResult.textContent = '';
         expression += symbol;
         displayResult.textContent += symbol;
@@ -152,11 +153,10 @@
         }
       }
 
-      // c 버튼을 눌렀을 때
+      // C 버튼을 눌렀을 때
       function init() {
-        var displayScreen = document.querySelector('.display');
         expression = '';
-        displayScreen.textContent = '';
+        displayResult.textContent = '';
         displayExpression.textContent = '';
         resultDisplayed = false;
       }
