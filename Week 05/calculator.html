@@ -106,7 +106,7 @@
       var resultDisplayed = false;
 
       // 숫자 눌렀을 때 호출되는 함수
-      // 매개변수로 입력하고자 하는(버튼이 눌린) 숫자를 가져옴
+      // 매개변수로 입력하고자 하는(버튼이 눌린) 가져옴
       function displayNum(num) {
         // 입력창의 결과가 나오는 부분에 이전 연산의 결과가 남아있음->결괏값을 지워 입력창 비워주는 if문
         // resultDisplayed가 true임->입력창이 비어있지 않음!
@@ -151,19 +151,23 @@
         displayExpression.textContent = expression;
       }
 
-      // '=' 눌렀을 때
+      // '=' 눌렀을 때 호출되는 함수
       function equal() {
-        // 수식 계산하는 함수 호출
+        // 수식 계산하는 함수를 호출함
+        // 매개변수(expression)를 통해 calculateResult()에 연산식을 전달하고 결괏값을 result에 저장함
         var result = calculateResult(expression);
+        // 입력창의 연산식이 나오는 부분에 완전한 연산식 띄워주기
         displayExpression.textContent += '=';
         // 계산 후 결과 출력
         displayResult.textContent = result;
         // 결과 계산 후 연산식 초기화
         expression = '';
+        //
         resultDisplayed = true;
       }
 
       // 입력한 수식 계산 및 결과 반환
+      // 매개변수를 통해 여태 입력된 계산식을 받아옴
       function calculateResult(expression) {
         try {
           return Function('return ' + expression)();
@@ -173,11 +177,13 @@
         }
       }
 
-      // C 버튼을 눌렀을 때
+      // 'C' 버튼을 눌렀을 때 초기화를 위해 호출되는 함수
+      // 연산식과 입력창의 연산식/누른 숫자 및 연산 기호/결과를 모두 비워줌
       function init() {
         expression = '';
         displayResult.textContent = '';
         displayExpression.textContent = '';
+        //
         resultDisplayed = false;
       }
     </script>
