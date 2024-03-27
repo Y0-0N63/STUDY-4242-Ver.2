@@ -98,11 +98,13 @@
     <script>
       // 입력한 숫자+연산 기호(=계산하고자 하는 연산식)을 저장하는 변수
       var expression = '';
-      // 입력창에 띄워져있는 연산식
+      // 입력창에 띄워져있는 사용자가 입력한 연산식을 표시
       var displayExpression = document.querySelector('#displayExpression');
-      // 입력창에 띄워져있는 현재 누른 값 or 결과값
+      // 입력창에 띄워져있는 현재 누른 값 or 결과값 (연산식보다 더 강조되어 표시됨)
       var displayResult = document.querySelector('#displayResult');
-      // resultDisplayed의 기본값(false)->처음 실행할 땐 입력창이 비어있기 때문에!
+      // 불린 값을 갖는 변수를 사용하여 계산 결과가 띄워져있는지 여부를 판단할 수 있음!
+      // -> 숫자 or 기호 버튼 누를 때마다 업데이트하여 화면에 표시되어있는지 여부 추적
+      // resultDisplayed의 기본값(false)->처음 실행할 땐 아직 계산을 시작도 하지 않았기 때문에!
       var resultDisplayed = false;
 
       // 숫자 눌렀을 때 호출되는 함수
@@ -162,16 +164,19 @@
         displayResult.textContent = result;
         // 결과 계산 후 연산식 초기화
         expression = '';
-        //
+        // 계산을 수행했기 때문에 계산 결과가 표시됨 -> 따라서 true로 설정됨!
         resultDisplayed = true;
       }
 
-      // 입력한 수식 계산 및 결과 반환
-      // 매개변수를 통해 여태 입력된 계산식을 받아옴
+      // 입력된 수식 계산 및 결과 반환
+      // 매개변수(expression) = 문자열 형태의 수식
+      // 문자열로 표현된 수식을 자바스크립트 함수로 변환하고 실행하여 결과 반환
       function calculateResult(expression) {
         try {
+          // Function 생성자 사용하여 expression을 반환하는 함수를 동적으로 생성함
+          // ex) expression이 2*4라면, 자바스크립트 코드 'return 2*4'로 변환됨! (Functino 생성자에 의해)
           return Function('return ' + expression)();
-          // 예외 발생->Error 반환
+          // 예외(수식에 문제 등) 발생->'Error' 문자열 반환
         } catch (error) {
           return 'Error';
         }
