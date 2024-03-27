@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>계산기 만들기</title>
     <style>
+      #background {
+        border: solid 3px black;
+        width: 551px;
+      }
       .calculator {
         width: 550px;
         height: 350px;
@@ -22,6 +26,7 @@
         margin: 5px;
         padding: 5px;
         background-color: #efefef;
+        border: #777777 solid 1px;
       }
 
       #displayExpression {
@@ -54,81 +59,95 @@
     </style>
   </head>
   <body>
-    <div class="calculator">
-      <div class="display">
-        <div id="displayExpression"></div>
-        <div id="displayResult"></div>
-      </div>
-      <div class="buttons">
-        <button onclick="displayNum('7')">7</button>
-        <button onclick="displayNum('8')">8</button>
-        <button onclick="displayNum('9')">9</button>
-        <button onclick="displaySymbol('+')">+</button>
-      </div>
-      <div class="buttons">
-        <button onclick="displayNum('4')">4</button>
-        <button onclick="displayNum('5')">5</button>
-        <button onclick="displayNum('6')">6</button>
-        <button onclick="displaySymbol('-')">-</button>
-      </div>
-      <div class="buttons">
-        <button onclick="displayNum('1')">1</button>
-        <button onclick="displayNum('2')">2</button>
-        <button onclick="displayNum('3')">3</button>
-        <button onclick="displaySymbol('*')">*</button>
-      </div>
-      <div class="buttons">
-        <button id="zero" onclick="displayNum('0')">0</button>
-        <button onclick="displayNum('.')">.</button>
-        <button onclick="displaySymbol('/')">/</button>
-      </div>
-      <div class="buttons">
-        <button id="equal" onclick="equal()">=</button>
-        <button onclick="init()">C</button>
+    <div id="background">
+      <div class="calculator">
+        <div class="display">
+          <div id="displayExpression"></div>
+          <div id="displayResult"></div>
+        </div>
+        <div class="buttons">
+          <button onclick="displayNum('7')">7</button>
+          <button onclick="displayNum('8')">8</button>
+          <button onclick="displayNum('9')">9</button>
+          <button onclick="displaySymbol('+')">+</button>
+        </div>
+        <div class="buttons">
+          <button onclick="displayNum('4')">4</button>
+          <button onclick="displayNum('5')">5</button>
+          <button onclick="displayNum('6')">6</button>
+          <button onclick="displaySymbol('-')">-</button>
+        </div>
+        <div class="buttons">
+          <button onclick="displayNum('1')">1</button>
+          <button onclick="displayNum('2')">2</button>
+          <button onclick="displayNum('3')">3</button>
+          <button onclick="displaySymbol('*')">*</button>
+        </div>
+        <div class="buttons">
+          <button id="zero" onclick="displayNum('0')">0</button>
+          <button onclick="displayNum('.')">.</button>
+          <button onclick="displaySymbol('/')">/</button>
+        </div>
+        <div class="buttons">
+          <button id="equal" onclick="equal()">=</button>
+          <button onclick="init()">C</button>
+        </div>
       </div>
     </div>
 
     <script>
+      // 입력한 숫자+연산 기호(=계산하고자 하는 연산식)을 저장하는 변수
       var expression = '';
-      //
+      // 입력창에 띄워져있는 연산식
       var displayExpression = document.querySelector('#displayExpression');
+      // 입력창에 띄워져있는 현재 누른 값 or 결과값
       var displayResult = document.querySelector('#displayResult');
+      // resultDisplayed의 기본값(false)->처음 실행할 땐 입력창이 비어있기 때문에!
       var resultDisplayed = false;
 
-      // 숫자 눌렀을 때
+      // 숫자 눌렀을 때 호출되는 함수
+      // 매개변수로 입력하고자 하는(버튼이 눌린) 숫자를 가져옴
       function displayNum(num) {
-        // 새 버튼을 눌렀을 때, 입력창에 이전 연산의 결과가 남아있으면 결과 지워주기
+        // 입력창의 결과가 나오는 부분에 이전 연산의 결과가 남아있음->결괏값을 지워 입력창 비워주는 if문
+        // resultDisplayed가 true임->입력창이 비어있지 않음!
         if (resultDisplayed) {
-          resultDisplayed = false;
           expression = '';
           displayResult.textContent = '';
           displayExpression.textContent = '';
+          resultDisplayed = false;
         }
 
+        // 입력창의 결과가 나오는 부분에 연산자가 있을 때 사용하는 if문
         if (
           displayResult.textContent === '+' ||
           displayResult.textContent === '-' ||
           displayResult.textContent === '*' ||
           displayResult.textContent === '/'
         ) {
-          // 입력창에 연산 부호가 남아있으면, 연산 부호를 지워주고(입력창을 공백으로) ✔️
-          // 입력한 숫자만 입력창에 남겨주는 기능 추가 ✔️
+          // 연산자가 있음->연산식에 입력한 숫자 더해주기
           expression += num;
+          // 결과가 나오는 부분에 숫자가 보여지도록 함
           displayResult.textContent = num;
+          // 입력된 연산식이 나오는 부분에 현재까지 입력된 연산식을 보여주도록 함
           displayExpression.textContent = expression;
         } else {
+          // 연산자가 없음->연산식, 결과 및 입력된 연산식이 나오는 부분에 새로 입력한 숫자를 추가시켜줌
           expression += num;
           displayResult.textContent += num;
           displayExpression.textContent = expression;
         }
       }
 
-      // 연산 기호 눌렀을 때
-      // 기존에 입력된 숫자 지우고 연산 기호만 띄워주는 기능 추가 ✔️
+      // 연산 기호 눌렀을 때 호출되는 함수
+      // 매개변수로 입력하고자 하는(버튼이 눌린) 연산 기호를 가져옴
       function displaySymbol(symbol) {
-        displayResult.textContent = '';
+        // 연산식에 연산 기호 추가해주기
         expression += symbol;
+        // 입력창의 결과가 나오는 부분에 입력된 숫자 지우고
+        displayResult.textContent = '';
+        // 입력창의 결과가 나오는 부분에 연산 기호만 띄워줌
         displayResult.textContent += symbol;
+        // 입력창의 연산식이 나오는 부분에 현재까지 입력된 연산식을 띄워줌
         displayExpression.textContent = expression;
       }
 
