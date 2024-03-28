@@ -177,7 +177,7 @@
           // ex) expression이 2*4라면, 자바스크립트 코드 'return 2*4'로 변환됨! (Functino 생성자에 의해)
           // 생성자 함수는 반드시 new 연산자와 함께 호출되어야 함!
           // Function 생성자는 새 Function 객체를 만듦 (생성자를 직접 호출하여 동적으로 함수 생성)
-          // 보안 문제 가능성은 eval과 동일하지만 Function 생성자는 전역 범위로 한정된 함수만 생성한다는 차이점이 있음!
+          // 보안 문제 생길 수는 있지만... eval과 달리 Function 생성자는 전역 범위로 한정된 함수만 생성
           return Function('return ' + expression)();
           // 예외(수식에 문제 등) 발생->'Error' 문자열 반환
         } catch (error) {
