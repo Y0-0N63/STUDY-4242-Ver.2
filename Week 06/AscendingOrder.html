@@ -53,9 +53,13 @@
     </div>
 
     <script>
+      // 정렬된 문자열을 화면에 표시하는 함수
       function display() {
+        // 입력된 문자열 가져와 변수에 저장하기
         var str = document.querySelector('#inputStr').value;
+        // 자바스크립트의 메서드를 통해 문자열을 개별적인 문자로 분할->오름차순으로 정렬->다시 문자열로 결합하여 새로운 변수에 저장하기
         var sortedStr = str.split('').sort().join('');
+        // 정렬된 문자열을 result 요소의 내용을 변경해 HTML 문서에 삽입
         document.querySelector('#result').innerHTML =
           '정렬된 문자열' + '<br>' + sortedStr;
       }
