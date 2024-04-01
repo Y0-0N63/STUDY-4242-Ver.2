@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>너의 글자를 다 뒤집겠어!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 300px;
+        margin: 50px auto; /*상단과 하단에 50px의 마진을 준다*/
+        text-align: center;
+      }
+
+      input[type='text'] {
+        width: 100%;
+        padding: 10px; /*상하 여백은 10px*/
+        margin-bottom: 10px; /*상하 여백은 10px*/
+        box-sizing: border-box;
+        border-radius: 10px;
+        background-color: rgb(186, 235, 242);
+      }
+
+      button {
+        padding: 10px 20px; /*상하 여백은 10px, 좌우 여백은 20px*/
+        background-color: rgb(248, 209, 213);
+        border-radius: 10px;
+        color: #000000;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #c9f938;
+      }
+
+      #result {
+        /*결과를 표시하는 요소의 스타일 지정-상단 여백 20px*/
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>문자를 입력하세요.</h2>
+      <input
+        type="text"
+        id="inputString"
+        placeholder="지금 가장 보고싶은 사람에게 한마디"
+        onkeypress="if(event.keyCode==13) reverseString()"
+      />
+      <button onclick="reverseString()">뒤집어집니다.</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function reverseString() {
+        var inputString = document.querySelector('#inputString').value;
+
+        var newString = '';
+        for (var i = inputString.length - 1; i >= 0; i--) {
+          newString += inputString[i];
+        }
+
+        document.querySelector('#result').innerText =
+          '뒤집어서 보세요: ' + newString;
+      }
+    </script>
+  </body>
+</html>
