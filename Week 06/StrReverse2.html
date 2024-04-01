@@ -69,9 +69,10 @@
         for (var i = inputString.length - 1; i >= 0; i--) {
           newString += inputString[i];
         }
-        // return 값 필요 없는 이유
+        // return값 필요 없는 이유
         // ->return 문을 사용하면 해당 함수가 실행되고 값을 반환한 후 함수 종료
         // -> 화면에 표시되지 앟음!
+        // reverseString() 함수가 직접 결과 화면에 출력하고 종료되는 역할을 하고 있으므로 return 추가할 필요 X
 
         document.querySelector('#result').innerText =
           '뒤집어서 보세요: ' + newString;
