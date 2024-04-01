@@ -50,6 +50,7 @@
         type="text"
         id="inputString"
         placeholder="지금 가장 보고싶은 사람에게 한마디"
+        onkeypress="if(event.keyCode==13) reverseString()"
       />
       <button onclick="reverseString()">뒤집어집니다.</button>
       <div id="result"></div>
