@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>두 수의 합을 제곱하기</title>
+  </head>
+  <body>
+    <script>
+      // 사용자한테 두 숫자를 입력받은 후 문자열을 숫자로 변환
+      let num1 = parseInt(prompt('첫 번째 수를 입력하세요.'));
+      let num2 = parseInt(prompt('두 번째 수를 입력하세요.'));
+
+      // 숫자 두 개의 합을 구한 후, 합을 제곱하는 함수
+      function square(num1, num2) {
+        let sum = num1 + num2;
+        // Math.pow(x, y)->x를 y번 거듭제곱한 값을 반환 (x의 y제곱)
+        let squareResult = Math.pow(sum, 2);
+        // return->결과를 호출한 곳으로 반환해주기(=결과를 변수에 할당 or 함수의 인자로 전달)
+        return squareResult;
+      }
+
+      // 함수 호출
+      let result = square(num1, num2);
+
+      // 결과 출력
+      alert('두 수의 합을 제곱한 값 : ' + result);
+    </script>
+  </body>
+</html>
