@@ -69,6 +69,7 @@
         for (var i = inputString.length - 1; i >= 0; i--) {
           newString += inputString[i];
         }
+        // return 값 필요 없는 이유->return 문을 사용하면 해당 함수가 실행되고 값을 반환한 후 함수 종료
 
         document.querySelector('#result').innerText =
           '뒤집어서 보세요: ' + newString;
