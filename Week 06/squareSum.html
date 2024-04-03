@@ -14,18 +14,14 @@
       // 숫자 두 개의 합을 구한 후, 합을 제곱하는 함수
       function square(num1, num2) {
         let sum = num1 + num2;
-        // Math.pow(x, y)->x를 y번 거듭제곱한 값을 반환 (x의 y제곱)
         let squareResult = Math.pow(sum, 2);
-        // return->결과를 호출한 곳으로 반환해주기 (계산된 값을 다른 곳에서 사용할 수 있도록 하기 위해서)
-        // + 결과를 변수에 할당 or 함수의 인자로 전달
-        // 만약에 alert가 함수 내부에 있으면 return할 필요 X
         return squareResult;
       }
 
-      // 함수 호출
+      // 함수 호출하기
       let result = square(num1, num2);
 
-      // 결과 출력
+      // 결과 출력하기
       alert('두 수의 합을 제곱한 값 : ' + result);
     </script>
   </body>
