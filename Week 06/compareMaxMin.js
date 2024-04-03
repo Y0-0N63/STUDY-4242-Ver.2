@@ -1,13 +1,12 @@
 // 숫자 배열에서 최댓값과 최솟값을 비교하는 함수
 function MaxOrMin(numbers) {
-  // 숫자 입력이 비어있을 경우, "숫자를 다시 입력해주세요." 출력
+  // 숫자 입력이 비어있을 경우
   if (!numbers) {
     console.log('숫자를 다시 입력해주세요.');
     return;
   }
 
-  // 각 배열 요소를 숫자로 변환
-  // split 입력된 숫자들을 공백을 기준으로 구별하여 숫자 배열로 변환
+  // 배열의 요소들을 개별적인 요소로 구별한 후 숫자로 변환
   const inputNumStr = numbers.split(' ');
 
   const arrNum = [];
