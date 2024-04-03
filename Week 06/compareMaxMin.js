@@ -6,7 +6,7 @@ function MaxOrMin(numbers) {
     return;
   }
 
-  // 배열의 요소들을 개별적인 요소로 구별한 후 숫자로 변환
+  // 입력된 숫자 배열을 분할하여 문자열 배열로 만들어낸 후 숫자 배열로 변환하기
   const inputNumStr = numbers.split(' ');
   const arrNum = [];
   for (let i = 0; i < inputNumStr.length; i++) {
