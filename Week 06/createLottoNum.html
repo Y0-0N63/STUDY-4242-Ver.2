@@ -46,7 +46,7 @@
         // False로 간주되는 값 제거하기
         var lottoNumbersText = selectedNumbers.filter(Boolean).join(' , ');
 
-        document.getElementById('lottoNumbers').textContent =
+        document.querySelector('#lottoNumbers').textContent =
           '추첨된 로또 번호: ' + lottoNumbersText;
       }
     </script>
