@@ -61,19 +61,11 @@
         var inputString = document.querySelector('#inputString').value;
 
         // 내림차순으로 반복하는 for문을 사용하여 문자열 반전하기
-        // 새로 생성될 문자열을 담을 빈 문자열 만들기
         var newString = '';
-
-        // 반복문의 시작점->문자열의 마지막 문자의 인덱스인 .length -1
-        // i가 0 이상일 때 코드 계속하여 반복, 반복할 때마다 i 값 감소
         for (var i = inputString.length - 1; i >= 0; i--) {
           newString += inputString[i];
         }
-        // return값 필요 없는 이유
-        // ->return 문을 사용하면 해당 함수가 실행되고 값을 반환한 후 함수 종료
-        // -> 화면에 표시되지 앟음!
-        // reverseString() 함수가 직접 결과 화면에 출력하고 종료되는 역할을 하고 있으므로 return 추가할 필요 X
-
+        
         document.querySelector('#result').innerText =
           '뒤집어서 보세요: ' + newString;
       }
