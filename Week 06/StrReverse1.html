@@ -11,21 +11,21 @@
 
       .container {
         max-width: 300px;
-        margin: 50px auto; /*상단과 하단에 50px의 마진을 준다*/
+        margin: 50px auto;
         text-align: center;
       }
 
       input[type='text'] {
         width: 100%;
-        padding: 10px; /*상하 여백은 10px*/
-        margin-bottom: 10px; /*상하 여백은 10px*/
+        padding: 10px;
+        margin-bottom: 10px;
         box-sizing: border-box;
         border-radius: 10px;
         background-color: rgb(186, 235, 242);
       }
 
       button {
-        padding: 10px 20px; /*상하 여백은 10px, 좌우 여백은 20px*/
+        padding: 10px 20px;
         background-color: rgb(248, 209, 213);
         border-radius: 10px;
         color: #000000;
@@ -38,7 +38,6 @@
       }
 
       #result {
-        /*결과를 표시하는 요소의 스타일 지정-상단 여백 20px*/
         margin-top: 20px;
       }
     </style>
@@ -59,14 +58,9 @@
     <script>
       // 문자열을 뒤집어서 출력하는 함수
       function reverseString() {
-        // 변수 inputString에 입력 필드(inputString)의 값을 가져와서 저장
         var inputString = document.querySelector('#inputString').value;
-
-        // 자바스크립트의 내장 함수들을 사용해 문자열 반전하기
-        // reverse() : 배열의 순서를 반전시킴
         var reversedString = inputString.split('').reverse().join('');
 
-        // result 요소의 텍스트 내용을  "뒤집어서 보세요: " + reversedString로 변경
         document.querySelector('#result').innerText =
           '뒤집어서 보세요: ' + reversedString;
       }
