@@ -48,12 +48,12 @@
       let postIdCounter = 1;
 
       function addPost() {
-        const authorInput = document.getElementById('authorInput').value;
-        const contentInput = document.getElementById('contentInput').value;
+        const authorInput = document.querySelector('#writer').value;
+        const contentInput = document.querySelector('#content').value;
         const currentTime = new Date().toLocaleString();
 
         if (authorInput.trim() === '' || contentInput.trim() === '') {
-          alert('작성자와 글 내용을 모두 입력해주세요.');
+          alert('작성자 혹은 글 내용을 입력해주세요.');
           return;
         }
 
@@ -70,16 +70,16 @@
       }
 
       function updatePostList() {
-        const postList = document.getElementById('postList');
+        const postList = document.querySelector('#postList');
         postList.innerHTML = '';
 
         posts.forEach((post) => {
           const row = document.createElement('tr');
           row.innerHTML = `
-                    <td>${post.id}</td>
-                    <td>${post.author}</td>
-                    <td>${post.content}</td>
-                    <td>${post.time}</td>
+            <td>${post.id}</td>
+            <td>${post.author}</td>
+            <td>${post.content}</td>
+            <td>${post.time}</td>
                 `;
           postList.appendChild(row);
         });
