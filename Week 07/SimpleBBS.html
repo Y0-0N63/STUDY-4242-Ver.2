@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>간단한 게시판</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 4px;
+        text-align: center;
+      }
 
+      td {
+        text-align: left;
+      }
+
+      .space-between {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="authorInput" placeholder="작성자" />
+    <input type="text" id="contentInput" placeholder="글 내용" />
+    <input type="button" value="글 작성" onclick="addPost()" class="space-between" />
+    <table id="postTable">
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>작성자</th>
+          <th>내용</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody id="postList"></tbody>
+    </table>
+
+    <script>
+      let posts = [];
+      let postIdCounter = 1;
+
+      function addPost() {
+        const authorInput = document.getElementById('authorInput').value;
+        const contentInput = document.getElementById('contentInput').value;
+        const currentTime = new Date().toLocaleString();
+
+        if (authorInput.trim() === '' || contentInput.trim() === '') {
+          alert('작성자와 글 내용을 모두 입력해주세요.');
+          return;
+        }
+
+        const post = {
+          id: postIdCounter++,
+          author: authorInput,
+          content: contentInput,
+          time: currentTime,
+        };
+
+        posts.push(post);
+
+        updatePostList();
+      }
+
+      function updatePostList() {
+        const postList = document.getElementById('postList');
+        postList.innerHTML = '';
+
+        posts.forEach((post) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+                    <td>${post.id}</td>
+                    <td>${post.author}</td>
+                    <td>${post.content}</td>
+                    <td>${post.time}</td>
+                `;
+          postList.appendChild(row);
+        });
+      }
+    </script>
+  </body>
+</html>
