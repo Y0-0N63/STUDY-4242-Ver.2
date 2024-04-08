@@ -12,11 +12,11 @@
         padding: 2px 4px 0;
       }
 
-      #writer {
+      #inputWriter {
         width: 250px;
       }
 
-      #content {
+      #inputContent {
         width: 582px;
       }
 
@@ -40,8 +40,12 @@
   </head>
   <body>
     <h1>간단한 게시판 만들기</h1>
-    <input type="text" id="writer" placeholder="작성자를 입력해주세요." />
-    <input type="text" id="content" placeholder="글 내용을 입력해주세요." />
+    <input type="text" id="inputWriter" placeholder="작성자를 입력해주세요." />
+    <input
+      type="text"
+      id="inputContent"
+      placeholder="글 내용을 입력해주세요."
+    />
     <input type="button" value="글 작성" onclick="addPost()" />
     <table id="postTable">
       <thead>
@@ -57,22 +61,22 @@
 
     <script>
       let posts = [];
-      let postIdCounter = 1;
+      let postNum = 1;
 
       function addPost() {
-        const authorInput = document.querySelector('#writer').value;
-        const contentInput = document.querySelector('#content').value;
+        const writer = document.querySelector('#inputWriter').value;
+        const content = document.querySelector('#inputContent').value;
         const currentTime = new Date().toLocaleString();
 
-        if (authorInput.trim() === '' || contentInput.trim() === '') {
+        if (writer.trim() === '' || content.trim() === '') {
           alert('작성자 혹은 글 내용을 입력해주세요.');
           return;
         }
 
         const post = {
-          id: postIdCounter++,
-          author: authorInput,
-          content: contentInput,
+          num: postNum++,
+          writer: writer,
+          content: content,
           time: currentTime,
         };
 
@@ -89,7 +93,7 @@
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${post.id}</td>
-            <td>${post.author}</td>
+            <td>${post.writer}</td>
             <td>${post.content}</td>
             <td>${post.time}</td>
                 `;
