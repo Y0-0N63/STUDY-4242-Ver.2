@@ -102,14 +102,18 @@
         // 기존 목록 초기화하기
         postList.innerHTML = '';
 
+        // 모든 게시글에 대해 반복하기
         posts.forEach((post) => {
+          // 새로운 행 생성해주기
           const row = document.createElement('tr');
+          // 각 열에 게시글 정보(번호, 작성자, 글 내용, 현재 시간) 추가
           row.innerHTML = `
             <td>${post.id}</td>
             <td>${post.writer}</td>
             <td>${post.content}</td>
             <td>${post.time}</td>
           `;
+          // 테이블에 행 추가
           postList.appendChild(row);
         });
       }
