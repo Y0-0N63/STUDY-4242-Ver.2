@@ -43,8 +43,13 @@
       type="text"
       id="inputContent"
       placeholder="글 내용을 입력해주세요."
+      onkeypress="if(event.keyCode==13) {addPost(); document.querySelector('#inputWriter').focus();}"
     />
-    <input type="button" value="글 작성" onclick="addPost()" />
+    <input
+      type="button"
+      value="글 작성"
+      onclick="{addPost(); document.querySelector('#inputWriter'.focus())}"
+    />
     <table id="postTable">
       <thead>
         <tr>
@@ -80,11 +85,12 @@
         };
 
         posts.push(post);
-        updatePostList();
+
+        updatePost();
       }
 
       // 게시글 목록을 업데이트하는 함수
-      function updatePostList() {
+      function updatePost() {
         const postList = document.querySelector('#postList');
         postList.innerHTML = '';
 
@@ -97,6 +103,9 @@
             <td>${post.time}</td>
           `;
           postList.appendChild(row);
+
+          document.querySelector('#inputWriter').value = '';
+          document.querySelector('#inputContent').value = '';
         });
       }
     </script>
