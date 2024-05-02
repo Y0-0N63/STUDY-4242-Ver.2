@@ -106,6 +106,9 @@
         // 게시글을 배열에 추가
         posts.push(post);
 
+        document.querySelector('#inputWriter').value = '';
+        document.querySelector('#inputContent').value = '';
+
         // 게시글 목록 업데이트하는 함수 호출
         updatePost();
       }
