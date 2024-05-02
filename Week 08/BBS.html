@@ -135,20 +135,26 @@
           const postRow = document.createElement('tr');
 
           // 각 열에 게시글 정보(번호, 작성자, 글 내용, 작성일) 추가
+          // ${post.comments ? '| ' + post.comments.join('<br>| ') : ''}
+          // 조건 연산자 '?' -> 조건 ? 참일 때 실행 : 거짓일 때 실행;
+          // 게시글이 댓글(post.comments)을 가지고 있는지 확인
+          // 있으면(T) 줄바꿈+ '|'로 구분하여 표시
+          // 없으면(F) '' 반환
+
           postRow.innerHTML = `
-      <td>${post.num}</td>
-      <td>${post.writer}</td>
-      <td>
-        ${post.content}
-        <br>
-        ${post.comments ? '| ' + post.comments.join('<br>| ') : ''}
-      </td>
-      <td>${post.time}</td>
-      <td>
-        <button onclick="deletePost(${post.num})">삭제</button>
-        <button onclick="addComment(${post.num})">댓글</button>
-      </td>
-    `;
+            <td>${post.num}</td>
+            <td>${post.writer}</td>
+            <td>
+              ${post.content}
+              <br>
+                ${post.comments ? '|' + post.comments.join('<br>| ') : ''}
+            </td>
+            <td>${post.time}</td>
+            <td>
+              <button onclick="deletePost(${post.num})">삭제</button>
+              <button onclick="addComment(${post.num})">댓글</button>
+            </td>
+          `;
 
           // 테이블에 게시글 행 추가
           postList.appendChild(postRow);
