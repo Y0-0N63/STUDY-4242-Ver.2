@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판 만들기</title>
+    <style>
+      input {
+        margin-bottom: 10px;
+        font-size: 15px;
+        height: 25px;
+        padding: 2px 4px 0;
+      }
+
+      #inputWriter {
+        width: 250px;
+      }
+
+      #inputContent {
+        width: 585px;
+      }
+
+      button {
+        border-radius: 15px;
+        padding: 10px 20px;
+        margin: 2px 5px;
+        font-size: 15px;
+        text-align: center;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 925px;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        text-align: center;
+      }
+
+      td {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>게시판 만들기</h1>
+    <input
+      type="text"
+      id="inputWriter"
+      placeholder="작성자를 입력해주세요."
+      onkeypress="if(event.keyCode==13)document.querySelector('#inputContent').focus()"
+    />
+    <input
+      type="text"
+      id="inputContent"
+      placeholder="글 내용을 입력해주세요."
+      onkeypress="if(event.keyCode==13) {addPost(); document.querySelector('#inputWriter').focus();}"
+    />
+    <input
+      type="button"
+      value="글 작성"
+      onclick="{addPost(); document.querySelector('#inputWriter').focus();}"
+      style="
+        height: 40px;
+        width: 80px;
+        border-radius: 40px;
+        font-size: 18px;
+        border-radius: 12px;
+      "
+    />
+    <table id="postTable">
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>작성자</th>
+          <th>내용</th>
+          <th>작성일</th>
+          <th>기능</th>
+        </tr>
+      </thead>
+      <tbody id="postList"></tbody>
+    </table>
+
+    <script>
+      let posts = [];
+      let postNum = 1;
+
+      function addPost() {
+        const writer = document.querySelector('#inputWriter').value;
+        const content = document.querySelector('#inputContent').value;
+        const currentTime = new Date().toLocaleString();
+
+        if (writer.trim() === '' || content.trim() === '') {
+          alert('작성자 혹은 글 내용을 입력해주세요.');
+          return;
+        }
+
+        const post = {
+          num: postNum++,
+          writer: writer,
+          content: content,
+          time: currentTime,
+        };
+
+        posts.push(post);
+
+        document.querySelector('#inputWriter').value = '';
+        document.querySelector('#inputContent').value = '';
+
+        updatePost();
+      }
+
+      function updatePost() {
+        const postList = document.querySelector('#postList');
+        postList.innerHTML = '';
+
+        posts.forEach((post) => {
+          const postRow = document.createElement('tr');
+
+          postRow.innerHTML = `
+            <td>${post.num}</td>
+            <td>${post.writer}</td>
+            <td>
+              ${post.content}
+              <br>
+                ${post.comments ? '|' + post.comments.join('<br>| ') : ''}
+            </td>
+            <td>${post.time}</td>
+            <td>
+              <button onclick="deletePost(${post.num})">삭제</button>
+              <button onclick="addComment(${post.num})">댓글</button>
+            </td>
+          `;
+
+          postList.appendChild(postRow);
+        });
+      }
+      function deletePost(postNum) {
+        const confirmed = confirm('정말 삭제하시겠습니까?');
+        if (confirmed) {
+          posts = posts.filter((post) => post.num !== postNum);
+          updatePost();
+        }
+      }
+
+      function addComment(postNum) {
+        const comment = prompt('댓글을 입력하세요.');
+        if (comment !== null && comment.trim() !== '') {
+          const post = posts.find((post) => post.num === postNum);
+          post.comments = post.comments || [];
+          const currentDate = new Date().toLocaleString();
+          const commentWithDate = `${comment} (${currentDate})`;
+          post.comments.push(commentWithDate);
+          updatePost();
+        }
+      }
+    </script>
+  </body>
+</html>
