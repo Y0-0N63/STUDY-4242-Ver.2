@@ -46,6 +46,10 @@
   </head>
   <body>
     <h1>게시판 만들기</h1>
+    <button>저장하기</button>
+    <button>불러오기</button>
+    <button onclick="deleteAllPosts()">게시판 비우기</button>
+    <br />
     <input
       type="text"
       id="inputWriter"
@@ -137,6 +141,7 @@
           postList.appendChild(postRow);
         });
       }
+
       function deletePost(postNum) {
         const confirmed = confirm('정말 삭제하시겠습니까?');
         if (confirmed) {
@@ -153,6 +158,15 @@
           const currentDate = new Date().toLocaleString();
           const commentWithDate = `${comment} (${currentDate})`;
           post.comments.push(commentWithDate);
+          updatePost();
+        }
+      }
+
+      // 모든 게시물을 삭제하는 함수
+      function deleteAllPosts() {
+        const deleteConfirm = confirm('정말 삭제하시겠습니까?');
+        if (deleteConfirm) {
+          posts = []; // 배열을 비움으로써 게시글 삭제
           updatePost();
         }
       }
