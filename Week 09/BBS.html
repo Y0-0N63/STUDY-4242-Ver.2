@@ -66,6 +66,16 @@
       #funcHead {
         width: 15%;
       }
+
+      #deleteBtn {
+        width: 50px;
+        margin-top: 7px;
+        margin-left: 20px;
+      }
+
+      #commentBtn {
+        width: 50px;
+      }
     </style>
   </head>
   <body>
@@ -154,12 +164,16 @@
           <td>
             ${post.content}
             <br>
-              ${post.comments ? '|' + post.comments.join('<br>| ') : ''}
+              ${post.comments ? '└ ' + post.comments.join('<br>└ ') : ''}
           </td>
           <td>${post.time}</td>
           <td>
-            <button onclick="deletePost(${post.num})">삭제</button>
-            <button onclick="addComment(${post.num})">댓글</button>
+            <button id="deleteBtn" onclick="deletePost(${
+              post.num
+            })">삭제</button>
+            <button id="commentBtn" onclick="addComment(${
+              post.num
+            })">댓글</button>
           </td>
         `;
 
