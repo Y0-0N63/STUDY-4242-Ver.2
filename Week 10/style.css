@@ -21,16 +21,29 @@ input {
   margin-right: 5px;
 }
 
-#deletePostsBtn {
-  width: 130px;
-}
-
 #searchInput {
   width: 200px;
 }
 
 #searchBtn {
   width: 60px;
+}
+
+#deletePostsBtn {
+  width: 130px;
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
+}
+
+#saveBtn {
+  margin-left: 275px;
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
+}
+
+#open_file {
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
 }
 
 #inputWriter {
