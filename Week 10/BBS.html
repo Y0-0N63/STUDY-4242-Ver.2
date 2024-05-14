@@ -55,7 +55,7 @@
       th,
       td {
         border: 1px solid black;
-        padding: 2px;
+        padding: 5px;
       }
 
       #numHead {
@@ -225,17 +225,22 @@
       }
 
       function deleteAllPosts() {
-        var deleteConfirm = confirm('정말 삭제하시겠습니까?');
-        if (deleteConfirm) {
-          postNum = 1;
-          posts = [];
-          updatePost();
+        if (posts.length == 0) {
+          alert('삭제할 게시글이 없습니다.');
+          return;
+        } else {
+          var deleteConfirm = confirm('정말 삭제하시겠습니까?');
+          if (deleteConfirm) {
+            postNum = 1;
+            posts = [];
+            updatePost();
+          }
         }
       }
 
       function downloadText(filename) {
         if (posts.length == 0) {
-          alert('저장할 데이터가 없습니다.');
+          alert('저장할 게시글이 없습니다.');
           return;
         }
 
@@ -276,11 +281,14 @@
       function search() {
         var searchWord = document.querySelector('#searchInput').value.trim();
         var searchResult = posts.filter(function (post) {
-          return post.content.includes(searchWord);
+          return (
+            post.content.includes(searchWord) ||
+            post.writer.includes(searchWord)
+          );
         });
 
-        if (searchResult === '') {
-          alert('검색 결과가 없습니다.');
+        if (searchWord.length == '0') {
+          alert('검색할 단어를 입력해주세요.');
           return;
         }
 
