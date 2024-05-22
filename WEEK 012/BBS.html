@@ -180,7 +180,10 @@
         }
       }
 
-      function searchClear() {}
+      function searchClear() {
+        document.querySelector('#searchInput').value = '';
+        updatePost();
+      }
 
       function downloadText(filename) {
         if (posts.length == 0) {
