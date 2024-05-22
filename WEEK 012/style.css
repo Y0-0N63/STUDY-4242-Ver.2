@@ -1,0 +1,99 @@
+body {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  border: 1px solid black;
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+input {
+  height: 22px;
+  margin-right: 5px;
+}
+
+#searchInput {
+  width: 500px;
+}
+
+#searchBtn {
+  width: 60px;
+}
+
+#deletePostsBtn {
+  width: 130px;
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
+}
+
+#saveBtn {
+  margin-left: 534px;
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
+}
+
+#open_file {
+  background-color: #e9f5ffc2;
+  border-radius: 10px;
+}
+
+#inputWriter {
+  width: 250px;
+}
+
+#inputContent {
+  width: 500px;
+}
+
+#writeBtn {
+  width: 85px;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#numHead {
+  width: 5%;
+}
+
+#writerHead {
+  width: 10%;
+}
+
+#contentHead {
+  width: 45%;
+}
+
+#dateHead {
+  width: 25%;
+}
+
+#funcHead {
+  width: 15%;
+}
+
+#deleteBtn {
+  width: 50px;
+  margin-top: 7px;
+  margin-left: 20px;
+}
+
+#commentBtn {
+  width: 50px;
+}
