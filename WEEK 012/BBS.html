@@ -130,7 +130,6 @@
 
         var totalPage = Math.ceil(posts.length / listCount);
 
-        // 이전 페이지 버튼 추가
         var prevPageBtn = document.createElement('button');
         prevPageBtn.textContent = '< 이전';
         prevPageBtn.classList.add('prevPageBtn');
@@ -140,26 +139,19 @@
         };
         paging.appendChild(prevPageBtn);
 
-        // 페이지 번호
         for (var i = 1; i <= totalPage; i++) {
           var pageBtn = document.createElement('button');
           pageBtn.classList.add('pageBtn');
-          // 버튼의 숫자를 페이지 번호로 설정
           pageBtn.textContent = i;
           pageBtn.onclick = (function (page) {
             return function () {
-              // 페이지 번호-> 현재 페이지에 할당-> 해당 페이지로 이동
               curPage = page;
-              // 해당 페이지의 게시물 표시
               updatePost();
             };
-            // 각 페이지 버튼에 현재 반복되는 페이지 번호 전달
           })(i);
-          // 페이징 요소에 페이지 버튼 추가
           paging.appendChild(pageBtn);
         }
 
-        // 다음 페이지 버튼 추가
         var nextPageBtn = document.createElement('button');
         nextPageBtn.classList.add('nextPageBtn');
         nextPageBtn.textContent = '다음 >';
