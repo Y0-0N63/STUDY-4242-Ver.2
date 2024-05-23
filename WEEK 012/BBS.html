@@ -54,8 +54,6 @@
 
     <br />
 
-    <div id="paging"></div>
-
     <input
       type="text"
       id="searchInput"
@@ -65,11 +63,15 @@
     <button id="searchBtn" onclick="search()">검색</button>
     <button onclick="searchClear()">검색 해제</button>
 
+    <div>
+      <button id="prePage" onclick="prePage()">&lt; 이전</button>
+      <span id="pageBtnGroup"></span>
+      <button id="nextPage" onclick="nextPage()">다음 &gt;</button>
+    </div>
+
     <script>
       var posts = [];
       var postNum = 1;
-      var listCount = 5;
-      var curPage = 1;
 
       function addPost() {
         var writer = document.querySelector('#inputWriter').value;
@@ -93,6 +95,8 @@
         document.querySelector('#inputWriter').value = '';
         document.querySelector('#inputContent').value = '';
 
+        totalCount = posts.length;
+        updatePage();
         updatePost();
       }
 
@@ -100,10 +104,13 @@
         var postList = document.querySelector('#postList');
         postList.innerHTML = '';
 
-        var startIndex = (curPage - 1) * listCount;
-        var endIndex = curPage * listCount;
+        if (curPage > totalPage) {
+          curPage = totalPage;
+        }
 
-        var displayPosts = posts.slice(startIndex, endIndex);
+        var start = (curPage - 1) * listCount;
+        var end = curPage * listCount;
+        var displayPosts = posts.slice(start, end);
 
         displayPosts.forEach((post) => {
           var postRow = document.createElement('tr');
@@ -120,49 +127,6 @@
 
           postList.appendChild(postRow);
         });
-
-        updatePage();
-      }
-
-      function updatePage() {
-        var paging = document.querySelector('#paging');
-        paging.innerHTML = '';
-
-        var totalPage = Math.ceil(posts.length / listCount);
-
-        // 이전 페이지 버튼 추가
-        var prevPageBtn = document.createElement('button');
-        prevPageBtn.textContent = '< 이전';
-        prevPageBtn.classList.add('prevPageBtn');
-        prevPageBtn.onclick = function () {
-          curPage--;
-          updatePost();
-        };
-        paging.appendChild(prevPageBtn);
-
-        // 페이지 번호
-        for (var i = 1; i <= totalPage; i++) {
-          var pageBtn = document.createElement('button');
-          pageBtn.classList.add('pageBtn');
-          pageBtn.textContent = i;
-          pageBtn.onclick = (function (page) {
-            return function () {
-              curPage = page;
-              updatePost();
-            };
-          })(i);
-          paging.appendChild(pageBtn);
-        }
-
-        // 다음 페이지 버튼 추가
-        var nextPageBtn = document.createElement('button');
-        nextPageBtn.classList.add('nextPageBtn');
-        nextPageBtn.textContent = '다음 >';
-        nextPageBtn.onclick = function () {
-          curPage++;
-          updatePost();
-        };
-        paging.appendChild(nextPageBtn);
       }
 
       function deletePost(postNum) {
@@ -232,9 +196,73 @@
         }
       }
 
-      function searchClear() {
-        document.querySelector('#searchInput').value = '';
+      // 현재 페이지 번호
+      var curPage = 1;
+      // 한 페이지 당 보여질 게시글의 수
+      var listCount = 5;
+      // 총 게시글 수
+      var totalCount;
+      // 총 페이지 수 (전체 목록을 표현하기 위해 필요)
+      var totalPage = totalCount / listCount;
+
+      function updatePage() {
+        // 총 게시글 수 업데이트
+        totalCount = posts.length;
+        // 총 페이지 개수 = 게시글 수 / 한 페이지에 보여질 게시글 수
+        // Math.ceil() : 소수점 이하 올려서 페이지 수 정수로 반환
+        // 부족한 게시글이 한 페이지에 표시될 수 있도록
+        totalPage = Math.ceil(totalCount / listCount);
+
+        // 현재 페이지가 총 페이지 수를 넘어가지 않도록 수정
+        if (curPage > totalPage) {
+          curPage = totalPage;
+        }
+
+        // 현재 페이지가 0이 되지 않도록 수정
+        if (curPage <= 0) {
+          curPage = 1;
+        }
+
+        document.querySelector('.pageNum').textContent = curPage;
+
+        updatePageBtn(); // totalCount를 업데이트하기 전에 호출되도록 이동
+      }
+      function updatePageBtn() {
+        var pageBtnGroup = document.querySelector('#pageBtnGroup');
+        pageBtnGroup.innerHTML = '';
+
+        for (var i = 1; i <= totalPage; i++) {
+          var pageBtn = document.createElement('button');
+          pageBtn.textContent = i;
+          pageBtn.classList.add('pageNum');
+          pageBtn.addEventListener('click', function () {
+            goPage(parseInt(this.textContent));
+          });
+
+          pageBtnGroup.appendChild(pageBtn);
+        }
+      }
+
+      function goPage(pageNum) {
+        curPage = pageNum;
+        updatePage();
         updatePost();
+      }
+
+      function prePage() {
+        if (curPage > 1) {
+          curPage--;
+          updatePage();
+          updatePost();
+        }
+      }
+
+      function nextPage() {
+        if (curPage < totalPage) {
+          curPage++;
+          updatePage();
+          updatePost();
+        }
       }
 
       function downloadText(filename) {
