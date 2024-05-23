@@ -132,7 +132,8 @@
 
         // 이전 페이지 버튼 추가
         var prevPageBtn = document.createElement('button');
-        prevPageBtn.textContent = '이전';
+        prevPageBtn.textContent = '< 이전';
+        prevPageBtn.classList.add('prevPageBtn');
         prevPageBtn.onclick = function () {
           curPage--;
           updatePost();
@@ -142,6 +143,7 @@
         // 페이지 번호
         for (var i = 1; i <= totalPage; i++) {
           var pageBtn = document.createElement('button');
+          pageBtn.classList.add('pageBtn');
           pageBtn.textContent = i;
           pageBtn.onclick = (function (page) {
             return function () {
@@ -154,7 +156,8 @@
 
         // 다음 페이지 버튼 추가
         var nextPageBtn = document.createElement('button');
-        nextPageBtn.textContent = '다음';
+        nextPageBtn.classList.add('nextPageBtn');
+        nextPageBtn.textContent = '다음 >';
         nextPageBtn.onclick = function () {
           curPage++;
           updatePost();
