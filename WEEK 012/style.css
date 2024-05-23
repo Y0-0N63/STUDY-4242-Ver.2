@@ -33,7 +33,7 @@ input {
   width: 60px;
 }
 
-#deletePostsBtn {
+#deleteAllBtn {
   width: 130px;
   background-color: #e9f5ffc2;
   border-radius: 10px;
@@ -88,12 +88,24 @@ td {
   width: 15%;
 }
 
-#deleteBtn {
+#addReplyBtn,
+#deletePostBtn {
   width: 50px;
-  margin-top: 7px;
-  margin-left: 20px;
 }
 
-#commentBtn {
-  width: 50px;
+.prevPageBtn,
+.nextPageBtn {
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  border: 0px;
+  background-color: white;
+}
+
+.pageBtn {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 7px;
+  margin: 0px 3px;
 }
