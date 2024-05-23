@@ -54,6 +54,8 @@
 
     <br />
 
+    <div id="paging"></div>
+
     <input
       type="text"
       id="searchInput"
@@ -66,6 +68,8 @@
     <script>
       var posts = [];
       var postNum = 1;
+      var listCount = 5;
+      var curPage = 1;
 
       function addPost() {
         var writer = document.querySelector('#inputWriter').value;
@@ -96,7 +100,12 @@
         var postList = document.querySelector('#postList');
         postList.innerHTML = '';
 
-        posts.forEach((post) => {
+        var startIndex = (curPage - 1) * listCount;
+        var endIndex = curPage * listCount;
+
+        var displayPosts = posts.slice(startIndex, endIndex);
+
+        displayPosts.forEach((post) => {
           var postRow = document.createElement('tr');
           postRow.innerHTML = `
             <td>${post.num}</td>
@@ -111,6 +120,46 @@
 
           postList.appendChild(postRow);
         });
+
+        updatePage();
+      }
+
+      function updatePage() {
+        var paging = document.querySelector('#paging');
+        paging.innerHTML = '';
+
+        var totalPage = Math.ceil(posts.length / listCount);
+
+        // 이전 페이지 버튼 추가
+        var prevPageBtn = document.createElement('button');
+        prevPageBtn.textContent = '이전';
+        prevPageBtn.onclick = function () {
+          curPage--;
+          updatePost();
+        };
+        paging.appendChild(prevPageBtn);
+
+        // 페이지 번호
+        for (var i = 1; i <= totalPage; i++) {
+          var pageBtn = document.createElement('button');
+          pageBtn.textContent = i;
+          pageBtn.onclick = (function (page) {
+            return function () {
+              curPage = page;
+              updatePost();
+            };
+          })(i);
+          paging.appendChild(pageBtn);
+        }
+
+        // 다음 페이지 버튼 추가
+        var nextPageBtn = document.createElement('button');
+        nextPageBtn.textContent = '다음';
+        nextPageBtn.onclick = function () {
+          curPage++;
+          updatePost();
+        };
+        paging.appendChild(nextPageBtn);
       }
 
       function deletePost(postNum) {
