@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판 만들기</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>게시판 만들기</h1>
+    <button id="saveBtn" onclick="downloadText('posts.json')">저장하기</button>
+    <button for="fileBtn" class="function-btn" id="open_file">불러오기</button>
+    <input
+      type="file"
+      id="fileBtn"
+      style="display: none"
+      accept=".json"
+      title="Select JSON File"
+    />
+    <button id="deleteAllBtn" onclick="deleteAll()">게시판 비우기</button>
+
+    <br />
+
+    <input
+      type="text"
+      id="inputWriter"
+      placeholder="작성자를 입력해주세요."
+      onkeypress="if(event.keyCode==13)document.querySelector('#inputContent').focus()"
+    />
+    <input
+      type="text"
+      id="inputContent"
+      placeholder="글 내용을 입력해주세요."
+      onkeypress="if(event.keyCode==13) {addPost(); document.querySelector('#inputWriter').focus();}"
+    />
+    <button
+      onclick="{addPost(); document.querySelector('#inputWriter').focus();}"
+      id="writeBtn"
+    >
+      글 작성
+    </button>
+    <table id="postTable">
+      <thead>
+        <tr>
+          <th id="numHead">번호</th>
+          <th id="writerHead">작성자</th>
+          <th id="contentHead">내용</th>
+          <th id="dateHead">작성일</th>
+          <th id="funcHead">기능</th>
+        </tr>
+      </thead>
+      <tbody id="postList"></tbody>
+    </table>
+
+    <br />
+
+    <div id="paging"></div>
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="검색할 단어를 입력해주세요."
+      onkeypress="if(event.keyCode==13) {search(); document.querySelector('#searchInput').focus();}"
+    />
+    <button id="searchBtn" onclick="search()">검색</button>
+    <button onclick="searchClear()">검색 해제</button>
+
+    <script>
+      var posts = [];
+      var postNum = 1;
+      var listCount = 5;
+      var curPage = 1;
+
+      function addPost() {
+        var writer = document.querySelector('#inputWriter').value;
+        var content = document.querySelector('#inputContent').value;
+        var date = new Date().toLocaleString();
+
+        if (writer.trim() == '' || content.trim() == '') {
+          alert('작성자 또는 게시글 내용을 작성해주세요.');
+          return;
+        }
+
+        var post = {
+          num: postNum++,
+          writer: writer,
+          content: content,
+          date: date,
+        };
+
+        posts.push(post);
+
+        document.querySelector('#inputWriter').value = '';
+        document.querySelector('#inputContent').value = '';
+
+        updatePost();
+      }
+
+      // 수정된 updatePost 함수
+      function updatePost() {
+        var postList = document.querySelector('#postList');
+        postList.innerHTML = '';
+
+        var startIndex = (curPage - 1) * listCount;
+        var endIndex = curPage * listCount;
+
+        var displayPosts = posts.slice(startIndex, endIndex);
+
+        displayPosts.forEach((post) => {
+          var postRow = document.createElement('tr');
+          postRow.innerHTML = `
+        <td>${post.num}</td>
+        <td>${post.writer}</td>
+        <td ondblclick="editPost(${post.num}, this)">${post.content}</td>
+        <td>${post.date}</td>
+        <td>
+          <button id="deletePostBtn" onclick="deletePost(${post.num})">삭제</button>
+          <button id="addReplyBtn" onclick="addReply(${post.num})">댓글</button>
+        </td>
+      `;
+
+          postList.appendChild(postRow);
+        });
+
+        updatePage();
+      }
+
+      function editPost(postNum, td) {
+        var post = posts.find((post) => post.num === postNum);
+        var original = post.content;
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.value = post.content;
+        input.style.width = '100%';
+
+        td.innerHTML = '';
+        td.appendChild(input);
+        input.focus();
+
+        input.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+            var newContent = input.value.trim();
+            if (newContent !== '') {
+              post.content = newContent;
+              td.innerHTML = newContent;
+            } else {
+              alert('내용을 입력해주세요.');
+            }
+          }
+        });
+
+        input.addEventListener('keyup', function (e) {
+          if (e.key === 'Escape') {
+            td.innerHTML = original;
+          }
+        });
+      }
+
+      function updatePage() {
+        var paging = document.querySelector('#paging');
+        paging.innerHTML = '';
+
+        var totalPage = Math.ceil(posts.length / listCount);
+
+        var prevPageBtn = document.createElement('button');
+        prevPageBtn.textContent = '< 이전';
+        prevPageBtn.classList.add('prevPageBtn');
+        prevPageBtn.onclick = function () {
+          curPage--;
+          updatePost();
+        };
+        paging.appendChild(prevPageBtn);
+
+        for (var i = 1; i <= totalPage; i++) {
+          var pageBtn = document.createElement('button');
+          pageBtn.classList.add('pageBtn');
+          pageBtn.textContent = i;
+          pageBtn.onclick = (function (page) {
+            return function () {
+              curPage = page;
+              updatePost();
+            };
+          })(i);
+          paging.appendChild(pageBtn);
+        }
+
+        var nextPageBtn = document.createElement('button');
+        nextPageBtn.classList.add('nextPageBtn');
+        nextPageBtn.textContent = '다음 >';
+        nextPageBtn.onclick = function () {
+          curPage++;
+          updatePost();
+        };
+        paging.appendChild(nextPageBtn);
+      }
+
+      function deletePost(postNum) {
+        if (confirm('정말 삭제하시겠습니까?')) {
+          posts = posts.filter((post) => post.num != postNum);
+          updatePost();
+        }
+      }
+
+      function addReply(postNum) {
+        var date = new Date().toLocaleString();
+        var replyContent = prompt('댓글을 입력해주세요.');
+        if (replyContent.trim() != '') {
+          var post = posts.find((post) => post.num == postNum);
+          post.content += `<br> ┕ ${replyContent} (${date})`;
+          updatePost();
+        } else {
+          alert('댓글의 내용을 작성해주세요.');
+          return;
+        }
+      }
+
+      function deleteAll() {
+        if (posts.length != 0) {
+          if (confirm('정말 삭제하시겠습니까?')) {
+            posts = [];
+            postNum = 1;
+            updatePost();
+          }
+        } else {
+          alert('삭제할 게시물이 없습니다.');
+          return;
+        }
+      }
+
+      function search() {
+        var searchWord = document.querySelector('#searchInput').value.trim();
+        postList.innerHTML = '';
+
+        if (searchWord.length !== 0) {
+          var searchResult = posts.filter(
+            (post) =>
+              post.content.includes(searchWord) ||
+              post.writer.includes(searchWord)
+          );
+
+          if (searchResult.length > 0) {
+            searchResult.forEach((post) => {
+              var postRow = document.createElement('tr');
+              postRow.innerHTML = `
+                  <td>${post.num}</td>
+                  <td>${post.writer}</td>
+                  <td>${post.content}</td>
+                  <td>${post.date}</td>
+                  <td>
+                    <button id="deletePostBtn" onclick="deletePost(${post.num})">삭제</button>
+                    <button id="addReplyBtn" onclick="addReply(${post.num})">댓글</button>
+                  </td>
+                `;
+              postList.appendChild(postRow);
+            });
+          } else {
+            alert('검색 결과가 없습니다.');
+          }
+        } else {
+          alert('검색할 단어를 입력해주세요.');
+        }
+      }
+
+      function searchClear() {
+        document.querySelector('#searchInput').value = '';
+        updatePost();
+      }
+
+      function downloadText(filename) {
+        if (posts.length == 0) {
+          alert('저장할 게시글이 없습니다.');
+          return;
+        }
+
+        var element = document.createElement('a');
+        var jsonString = JSON.stringify(posts, null, 4);
+
+        element.setAttribute(
+          'href',
+          'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonString)
+        );
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+
+        document.body.removeChild(element);
+      }
+
+      var label = document.getElementById('open_file');
+      var fileInput = document.getElementById('fileBtn');
+      label.addEventListener('click', function (e) {
+        e.preventDefault();
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var fr = new FileReader();
+        fr.onload = () => {
+          var fileContent = fr.result;
+          var jsonObj = JSON.parse(fileContent);
+          posts = jsonObj;
+          updatePost();
+        };
+        fr.readAsText(file);
+      });
+    </script>
+  </body>
+</html>
